@@ -1,0 +1,21 @@
+<?php
+ include 'signupdb.php';
+
+    $username = $_POST['username'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $password1 = $_POST['password1'];
+    $password2 = $_POST['password2'];
+
+$search = ("SELECT username FROM accs WHERE username = '$username'");
+
+ $query = "INSERT INTO accs (username, fname, lname, password1, password2) 
+ VALUES ('$username', '$fname', '$lname', '$password1', '$password2');"; 
+$result = mysqli_query($conn, $search);
+$rowCount = mysqli_num_rows($result);
+if ($rowCount>0) {
+ die("Username already exists!");
+}else{
+   $result = mysqli_query($conn, $query);
+}
+ header("Location /register.php?signup=success");
